@@ -1,6 +1,6 @@
 const { Engine, Render, Runner, World, Bodies, Body, Events } = Matter;
 
-const cells = 3;
+const cells = 6;
 const width = 600;
 const height = 600;
 
@@ -202,7 +202,12 @@ Events.on(engine, 'collisionStart', event => {
             labels.includes(collision.bodyA.label) && 
             labels.includes(collision.bodyB.label)
         ) {
-            world.gravity.y = 1;
+            world.gravity.y = 0.5;
+            world.bodies.forEach(body=> {
+                if (body.label === 'wall') {
+                    Body.setStatic(body, false);
+                }
+            })
         }
     })
 });
